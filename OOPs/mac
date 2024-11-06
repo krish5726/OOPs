@@ -1,0 +1,105 @@
+ Address    Code        Basic                     Source
+
+4194304  0x0c100053  jal 4194636           14   jal print_inp_statement	
+4194308  0x0c100046  jal 4194584           15   jal input_int 
+4194312  0x000c4821  addu $9,$0,$12        16   move $t1,$t4			
+4194316  0x0c100058  jal 4194656           20   jal print_inp_int_statement
+4194320  0x0c100046  jal 4194584           21   jal input_int
+4194324  0x000c5021  addu $10,$0,$12       22   move $t2,$t4
+4194328  0x0c10005d  jal 4194676           26   jal print_out_int_statement
+4194332  0x0c100046  jal 4194584           27   jal input_int
+4194336  0x000c5821  addu $11,$0,$12       28   move $t3,$t4 
+4194340  0x000ac021  addu $24,$0,$10       32   move $t8,$t2
+4194344  0x0000b821  addu $23,$0,$0        33   move $s7,$zero	#i = 0
+4194348  0x12e90006  beq $23,$9,6          34   loop1:  beq $s7,$t1,loop1end
+4194352  0x0c100062  jal 4194696           35   	jal print_enter_int
+4194356  0x0c100046  jal 4194584           36   	jal input_int
+4194360  0xad4c0000  sw $12,0($10)         37   	sw $t4,0($t2)
+4194364  0x214a0004  addi $10,$10,4        38   	addi $t2,$t2,4
+4194368  0x22f70001  addi $23,$23,1        39         	addi $s7,$s7,1
+4194372  0x0810000b  j 4194348             40           j loop1      
+4194376  0x00185021  addu $10,$0,$24       41   loop1end: move $t2,$t8       
+4194380  0x0000b821  addu $23,$0,$0        49   move $s7,$0 #i=0
+4194384  0x000a7821  addu $15,$0,$10       50   move $t7,$t2 #store to new address
+4194388  0x214c0120  addi $12,$10,288      51   addi $t4,$t2,288#new address
+4194392  0x000ba821  addu $21,$0,$11       52   move $s5,$t3 #fnial ouput
+4194396  0x8d590000  lw $25,0($10)         54   	lw $t9,0($t2)
+4194400  0xad990000  sw $25,0($12)         55   	sw $t9,0($t4)
+4194404  0x218c0004  addi $12,$12,4        56   	addi $t4,$t4,4
+4194408  0x214a0004  addi $10,$10,4        57   	addi $t2,$t2,4
+4194412  0x22f70001  addi $23,$23,1        58   	addi $s7,$s7,1
+4194416  0x16e9fffa  bne $23,$9,-6         59   	bne $s7,$t1,loop_original
+4194420  0x0000b821  addu $23,$0,$0        61   move $s7,$0
+4194424  0x00006021  addu $12,$0,$0        62   move $t4,$0
+4194428  0x000f5021  addu $10,$0,$15       63   move $t2,$t7
+4194432  0x214c0120  addi $12,$10,288      64   addi $t4,$t2,288	
+4194436  0x12e90011  beq $23,$9,17         67   	beq $s7,$t1,Done	
+4194440  0x0000b021  addu $22,$0,$0        68   	move $s6,$0  #j=0
+4194444  0x0000c021  addu $24,$0,$0        69   	move $t8,$0  #flag
+4194448  0x20010004  addi $1,$0,4          71   		mul $s0,$s6,4
+4194452  0x72c18002  mul $16,$22,$1             
+4194456  0x01908020  add $16,$12,$16       72   		add $s0,$t4,$s0
+4194460  0x8e0d0000  lw $13,0($16)         74   		lw $t5,0($s0)
+4194464  0x8e0e0004  lw $14,4($16)         75   		lw $t6,4($s0)
+4194468  0x01cd082a  slt $1,$14,$13        77   		bge $t6,$t5,no_swap
+4194472  0x10200003  beq $1,$0,3                
+4194476  0xae0e0000  sw $14,0($16)         80   		sw $t6,0($s0)
+4194480  0xae0d0004  sw $13,4($16)         81   		sw $t5,4($s0)
+4194484  0x24180001  addiu $24,$0,1        84   		li $t8,1
+4194488  0x22d60001  addi $22,$22,1        88   		addi $s6,$s6,1
+4194492  0x02c9082a  slt $1,$22,$9         89   		blt $s6,$t1,inner_loop2
+4194496  0x1420fff3  bne $1,$0,-13              
+4194500  0x22f70001  addi $23,$23,1        90   	addi $s7,$s7,1
+4194504  0x1700ffee  bne $24,$0,-18        91   	bnez $t8,outer_loop1
+4194508  0x0000a021  addu $20,$0,$0        93   	move $s4,$0
+4194512  0x20010001  addi $1,$0,1          94   	subi $s4,$s4,1
+4194516  0x0281a022  sub $20,$20,$1             
+4194520  0x8d930004  lw $19,4($12)         96   		lw $s3 4($t4)
+4194524  0xaeb30000  sw $19,0($21)         97   		sw $s3 0($s5)
+4194528  0x218c0004  addi $12,$12,4        98   		addi $t4,$t4,4
+4194532  0x22b50004  addi $21,$21,4        99   		addi $s5,$s5,4
+4194536  0x22940001  addi $20,$20,1        100  		addi $s4,$s4,1
+4194540  0x1689fffa  bne $20,$9,-6         101  		bne $s4,$t1 loop_final
+4194544  0x0000b821  addu $23,$0,$0        107  move $s7,$zero	#i = 0
+4194548  0x12e90006  beq $23,$9,6          108  loop: beq $s7,$t1,end
+4194552  0x8d6c0000  lw $12,0($11)         109        lw $t4,0($t3)
+4194556  0x0c10004a  jal 4194600           110        jal print_int
+4194560  0x0c10004e  jal 4194616           111        jal print_line
+4194564  0x216b0004  addi $11,$11,4        112        addi $t3,$t3,4
+4194568  0x22f70001  addi $23,$23,1        113        addi $s7,$s7,1
+4194572  0x0810003d  j 4194548             114        j loop 
+4194576  0x2402000a  addiu $2,$0,10        116  end:  li $v0,10
+4194580  0x0000000c  syscall               117        syscall
+4194584  0x24020005  addiu $2,$0,5         119  input_int: li $v0,5
+4194588  0x0000000c  syscall               120  	   syscall
+4194592  0x00026021  addu $12,$0,$2        121  	   move $t4,$v0
+4194596  0x03e00008  jr $31                122  	   jr $ra
+4194600  0x24020001  addiu $2,$0,1         124  print_int: li $v0,1	
+4194604  0x000c2021  addu $4,$0,$12        125  	   move $a0,$t4
+4194608  0x0000000c  syscall               126  	   syscall
+4194612  0x03e00008  jr $31                127  	   jr $ra
+4194616  0x24020004  addiu $2,$0,4         129  print_line:li $v0,4
+4194620  0x3c011001  lui $1,4097           130  	   la $a0,next_line
+4194624  0x34240000  ori $4,$1,0                
+4194628  0x0000000c  syscall               131  	   syscall
+4194632  0x03e00008  jr $31                132  	   jr $ra
+4194636  0x24020004  addiu $2,$0,4         135  print_inp_statement: li $v0,4
+4194640  0x3c011001  lui $1,4097           136  		la $a0,inp_statement
+4194644  0x34240002  ori $4,$1,2                
+4194648  0x0000000c  syscall               137  		syscall 
+4194652  0x03e00008  jr $31                138  		jr $ra
+4194656  0x24020004  addiu $2,$0,4         140  print_inp_int_statement: li $v0,4
+4194660  0x3c011001  lui $1,4097           141  		la $a0,inp_int_statement
+4194664  0x3424002f  ori $4,$1,47               
+4194668  0x0000000c  syscall               142  		syscall 
+4194672  0x03e00008  jr $31                143  		jr $ra
+4194676  0x24020004  addiu $2,$0,4         145  print_out_int_statement: li $v0,4
+4194680  0x3c011001  lui $1,4097           146  		la $a0,out_int_statement
+4194684  0x34240065  ori $4,$1,101              
+4194688  0x0000000c  syscall               147  		syscall 
+4194692  0x03e00008  jr $31                148  		jr $ra
+4194696  0x24020004  addiu $2,$0,4         150  print_enter_int: li $v0,4
+4194700  0x3c011001  lui $1,4097           151  		la $a0,enter_int
+4194704  0x3424009d  ori $4,$1,157              
+4194708  0x0000000c  syscall               152  		syscall 
+4194712  0x03e00008  jr $31                153  		jr $ra
